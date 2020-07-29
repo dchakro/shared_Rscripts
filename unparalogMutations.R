@@ -28,7 +28,7 @@
 
 unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",", GeneColName , AnnotationColName ){
    # Installing missing dependencies
-   dependencies <- c("stringi", "progress")
+   dependencies <- c("stringi", "progress","data.table")
    missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
    if(length(missing_packages)) install.packages(missing_packages)      
    
@@ -51,7 +51,7 @@ unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",",
    rm(missing_packages,dependencies,check_paralog_sep,check_annotation_sep)
    gc()
    
-   current.idx <- nrow(DATA)+1
+   current.idx <- 1 # nrow(DATA)+1
    paralog.idx <- which(stringi::stri_detect_fixed(str = DATA$Gene.refGene,pattern = paralog_separator))
    pb <- progress::progress_bar$new(total=length(paralog.idx),format = " [:bar] :current/:total (:percent)",); pb$tick(0)
    
@@ -59,27 +59,27 @@ unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",",
    message(stringi::stri_c("There are ",length(paralog.idx)," annotations with ", Number_of_paralogs," paralogs."))
    
    # copying structure of original DATA
-   DATA.add <- DATA[1,]; DATA.add <- DATA.add[-1,] 
+   DATA.new <- DATA[1,]; DATA.new <- DATA.new[-1,] 
    
-   # Adding the empty rows to original table. 
-   # These rows will be populated in the for loop
-   DATA.add <- dplyr::bind_rows(DATA.add,data.frame(matrix(nrow = (length(paralog.idx)+Number_of_paralogs), ncol = ncol(DATA),dimnames = list(c(),colnames(DATA))),stringsAsFactors = F))
-   DATA <- dplyr::bind_rows(DATA,DATA.add)
-   rm(DATA.add) ; gc()
+   # Creating empty table which will be populated in the for loop
+   DATA.new <- dplyr::bind_rows(DATA.new,data.frame(matrix(nrow = (length(paralog.idx)+Number_of_paralogs), ncol = ncol(DATA),dimnames = list(c(),colnames(DATA))),stringsAsFactors = F))
    
    # Beginning isolation of the paralogs
    for(i in paralog.idx){
       Muts <- unlist(stringi::stri_split_fixed(DATA$AAChange.refGene[i],annotation_separator),use.names = F,recursive = F)
       for (gene in unlist(stringi::stri_split_fixed(DATA$Gene.refGene[i],pattern = paralog_separator),use.names = F,recursive = F)){
-         DATA[current.idx,] <- DATA[i,]
-         DATA$Gene.refGene[current.idx] <- gene
-         DATA$AAChange.refGene[current.idx] <- paste0(Muts[grep(gene,Muts,fixed = T)],collapse=",")
+         DATA.new[current.idx,] <- DATA[i,]
+         DATA.new$Gene.refGene[current.idx] <- gene
+         DATA.new$AAChange.refGene[current.idx] <- paste0(Muts[grep(gene,Muts,fixed = T)],collapse=annotation_separator)
          current.idx <- current.idx+1
       }
       pb$tick(1)
    }
    # removing the original rows with the paralogs as they are all unparalogged now
    DATA <- DATA[-paralog.idx,]
+   DATA <- dplyr::bind_rows(DATA,DATA.new)
+   rm(DATA.new) ; gc()
+   
    rownames(DATA) <- as.character(seq(1,length(DATA[,1])))
    return (DATA)
 }
