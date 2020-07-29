@@ -1,6 +1,6 @@
 # #<---------------------------->
-# # Please include this when distributing and/or using this code. 
-# # I hope you will read and respect the terms of the included LICENSE
+# # Please include this section when distributing and/or using this code. 
+# # Please read and abide by the terms of the included LICENSE
 # #
 # #  Author : Deepankar Chakroborty (https://gitlab.utu.fi/deecha)
 # #  Report issues: https://gitlab.utu.fi/deecha/shared_scripts/-/issues
@@ -29,12 +29,12 @@
 
 # <--------------->
 
+# Installing missing dependencies
+dependencies <- c("stringi", "progress")
+missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
+if(length(missing_packages)) install.packages(missing_packages)
+
 unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",", GeneColName , AnnotationColName ){
-   # Installing missing dependencies
-   dependencies <- c("stringi", "progress")
-   missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
-   if(length(missing_packages)) install.packages(missing_packages)      
-   
    # Sanity checks
    check_paralog_sep <- !any(stringi::stri_detect_fixed(str = DATA$Gene.refGene,pattern = paralog_separator))
    check_annotation_sep <- !any(stringi::stri_detect_fixed(str =  DATA$AAChange.refGene, pattern = annotation_separator))
