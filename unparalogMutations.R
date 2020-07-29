@@ -1,17 +1,20 @@
 # #<---------------------------->
-# #  Author : Deepankar Chakroborty
-# #  URL: https://gitlab.utu.fi/deecha
+# # Please include this when distributing and/or using this code. 
+# # I hope you will read and respect the terms of the included LICENSE
+# #
+# #  Author : Deepankar Chakroborty (https://gitlab.utu.fi/deecha)
 # #  Report issues: https://gitlab.utu.fi/deecha/shared_scripts/-/issues
-# #  Please include this when distributing my code. 
+# #  License: https://gitlab.utu.fi/deecha/shared_scripts/-/blob/master/LICENSE
+# #
+# #  PURPOSE:
 # #  In the gene column in your SNV annotation if you see something like:
 # #  e.g. PRAMEF7;PRAMEF8  OR  PRAMEF7,PRAMEF8
 # #       then your mutations annotations have gene paralogs.
-# #
 # #  This script aims to de-couple those paralogs into individual their rows.
 # #
-# #<---------------------------->
+# ------------------------ 
 
-### Info:
+### Info on what to pass as the function parameters:
 # Assign correct paralog_separator found in the gene column of your SNV annotations # e.g. if the Gene column has entries like PRAMEF7;PRAMEF8 
 # then the paralog_separator is ";" 
 # or set it to whatever separator is used by your SNV annotation software.
