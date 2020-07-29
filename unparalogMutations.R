@@ -33,6 +33,7 @@
 dependencies <- c("stringi", "progress")
 missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
 if(length(missing_packages)) install.packages(missing_packages)
+rm(missing_packages,dependencies)
 
 unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",", GeneColName , AnnotationColName ){
    # Sanity checks
@@ -51,7 +52,7 @@ unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",",
    stop("Inconsistencies with these input parameters.\n Ensure they are correct and try again.")
    }
    # Cleanup
-   rm(missing_packages,dependencies,check_paralog_sep,check_annotation_sep)
+   rm(check_paralog_sep,check_annotation_sep)
    gc()
    
    current.idx <- 1 # nrow(DATA)+1

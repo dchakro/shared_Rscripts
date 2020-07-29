@@ -17,6 +17,7 @@
 dependencies <- c("stringi")
 missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
 if(length(missing_packages)) install.packages(missing_packages) 
+rm(missing_packages,dependencies)
 
 MutSiteFind <- function(MutationColumn){
   return(unlist(x = stringi::stri_extract_first_regex(str = MutationColumn,pattern = "[[:digit:]]+"), use.names = F))
