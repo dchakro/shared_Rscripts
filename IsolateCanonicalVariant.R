@@ -28,10 +28,9 @@ if(length(missing_packages)) install.packages(missing_packages)
 rm(missing_packages,dependencies)
 
 IsolateCanonicalVariant <- function (AAchangeAnnotations){
-  library(doParallel)
-  #--- Change to master when ready
   # importing resources
-  refseq <- readRDS(url("https://gitlab.utu.fi/deecha/shared_scripts/-/raw/develop/asset/RefSeqSelect_Gene_Transcript.RDS"),"rb")
+  library(doParallel)
+  refseq <- readRDS(url("https://gitlab.utu.fi/deecha/shared_scripts/-/raw/master/asset/RefSeqSelect_Gene_Transcript.RDS"),"rb")
   source("https://gitlab.utu.fi/deecha/shared_scripts/-/raw/master/MutSiteFind.R")
   
   # initializing cluster
