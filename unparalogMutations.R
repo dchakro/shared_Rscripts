@@ -1,6 +1,7 @@
 # #<---------------------------->
 # #  Author : Deepankar Chakroborty
-# #  Report issues: 
+# #  URL: https://gitlab.utu.fi/deecha
+# #  Report issues: https://gitlab.utu.fi/deecha/shared_scripts/-/issues
 # #  Please include this when distributing my code. 
 # #  In the gene column in your SNV annotation if you see something like:
 # #  e.g. PRAMEF7;PRAMEF8  OR  PRAMEF7,PRAMEF8
