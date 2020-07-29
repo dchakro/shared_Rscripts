@@ -28,7 +28,7 @@
 
 unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",", GeneColName , AnnotationColName ){
    # Installing missing dependencies
-   dependencies <- c("stringi", "progress","data.table")
+   dependencies <- c("stringi", "progress")
    missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
    if(length(missing_packages)) install.packages(missing_packages)      
    
