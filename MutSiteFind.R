@@ -18,14 +18,8 @@ dependencies <- c("stringi")
 missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
 if(length(missing_packages)) install.packages(missing_packages) 
 
-## ----- Legacy version relying on r::base --------
-MutSiteFind.legacy=function(MutationColumn){
-  MutationSite=c()
-  for(i in seq(1:length(MutationColumn))){
-    Site=regmatches(MutationColumn[i], gregexpr("[[:digit:]]+",MutationColumn[i]))[[1]][1]
-    MutationSite=c(MutationSite,Site)
-  }
-  return(MutationSite)
+MutSiteFind <- function(MutationColumn){
+  return(unlist(x = stringi::stri_extract_first_regex(str = MutationColumn,pattern = "[[:digit:]]+"), use.names = F))
 }
 
 
