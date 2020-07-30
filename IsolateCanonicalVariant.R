@@ -34,7 +34,12 @@ IsolateCanonicalVariant <- function (AAchangeAnnotations){
   source("https://gitlab.utu.fi/deecha/shared_scripts/-/raw/master/MutSiteFind.R")
   
   # initializing cluster
-  myCluster <- makeCluster(parallel::detectCores(), type = "FORK",useXDR=F,.combine=cbind); registerDoParallel(myCluster);print(myCluster)
+  myCluster <- makeCluster(parallel::detectCores(), 
+                           type = "FORK",
+                           useXDR=F,
+                           .combine=cbind)
+  registerDoParallel(myCluster)
+  print(myCluster)
   
   file.create("log.txt")
   message(paste0("Logging processed mutations at: ",getwd(),"/log.txt"))
@@ -42,24 +47,71 @@ IsolateCanonicalVariant <- function (AAchangeAnnotations){
   # computation
   results <- foreach(MutInfo = AAchangeAnnotations,.combine = c) %dopar% {
     GENE <- can.isoform <- l <- l2 <- NA
-    l=unique(unlist(stringi::stri_split_fixed( str = MutInfo, pattern = ","),use.names = F,recursive = F))
+    l=unique(unlist(
+      stringi::stri_split_fixed(
+        str = MutInfo,
+        pattern = ","),
+      use.names = F,
+      recursive = F))
     
     if(length(l)==1){
-      l2 <- unlist(stringi::stri_split_fixed( str = l, pattern = ":"),use.names = F,recursive = F)
-      MUTATION <- stringi::stri_replace_first_fixed(str = l2[stringi::stri_detect_regex(str = l2, use.names = F, pattern = "^p\\.")],pattern = "p.",replacement = "")
+      l2 <- unlist(stringi::stri_split_fixed( 
+          str = l, 
+          pattern = ":"),
+        use.names = F,
+        recursive = F)
+      MUTATION <- stringi::stri_replace_first_fixed(
+        str = l2[stringi::stri_detect_regex(
+          str = l2, 
+          use.names = F, 
+          pattern = "^p\\.")],
+        pattern = "p.",
+        replacement = "")
     } else {
-      GENE <- stringi::stri_sub(str = l[1],from = 1,to = stringi::stri_locate_first_fixed(str = l[1],pattern = ":")[,"end"]-1)
+      GENE <- stringi::stri_sub(
+        str = l[1],
+        from = 1,
+        to = stringi::stri_locate_first_fixed(
+          str = l[1],
+          pattern = ":")[,"end"]-1)
+      
       can.isoform <- refseq$transcript_accession[refseq$gene_id==GENE]
+      
       if(length(can.isoform)==0 | !any(stringi::stri_detect_fixed(str = l,pattern = can.isoform))){
         # Canonical isoform not found in RefSeq, or Match for Canonical isoform not found in AAchangeAnnotations
-        l2 <- unlist(stringi::stri_split_fixed( str = l, pattern = ":"),use.names = F,recursive = F)
-        l3 <- stringi::stri_replace_all_fixed(str = l2[stringi::stri_startswith_fixed(str = l2,"p.")],pattern = "p.",replacement = "")
+        l2 <- unlist(
+          stringi::stri_split_fixed( 
+            str = l, 
+            pattern = ":"),
+          use.names = F,
+          recursive = F)
+        
+        l3 <- stringi::stri_replace_all_fixed(
+          str = l2[stringi::stri_startswith_fixed(
+            str = l2,
+            "p.")],
+          pattern = "p.",
+          replacement = "")
+        
         MUTATION <- l3[which.max(MutSiteFind(l3))]
       } else {
         # Canonical isoform found
         l=l[grep(can.isoform,l)]
-        l2 <- unlist(stringi::stri_split_fixed( str = l, pattern = ":"),use.names = F,recursive = F)
-        MUTATION <- stringi::stri_replace_first_fixed(str = l2[stringi::stri_detect_regex(str = l2, use.names = F, pattern = "^p\\.")],pattern = "p.",replacement = "")
+        
+        l2 <- unlist(
+          stringi::stri_split_fixed( 
+            str = l, 
+            pattern = ":"),
+          use.names = F,
+          recursive = F)
+        
+        MUTATION <- stringi::stri_replace_first_fixed(
+          str = l2[stringi::stri_detect_regex(
+            str = l2, 
+            use.names = F, 
+            pattern = "^p\\.")],
+          pattern = "p.",
+          replacement = "")
       }
     }
     if(length(MUTATION)==0){
