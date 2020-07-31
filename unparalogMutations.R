@@ -1,20 +1,30 @@
+# Installing missing dependencies
+dependencies <- c("stringi", "progress")
+missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
+if(length(missing_packages)) install.packages(missing_packages)
+rm(missing_packages,dependencies)
+
+unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",", GeneColName , AnnotationColName ){
 # #<---------------------------->
-# # Please include this section when distributing and/or using this code. 
-# # Please read and abide by the terms of the included LICENSE
+# # You must include this section when:
+# # Distributing, Using and/or Modifying this code. 
+# # Please read and abide by the terms of the included LICENSE.
+# # Copyright 2020, Deepankar Chakroborty, All rights reserved.
 # #
 # #  Author : Deepankar Chakroborty (https://gitlab.utu.fi/deecha)
 # #  Report issues: https://gitlab.utu.fi/deecha/shared_scripts/-/issues
 # #  License: https://gitlab.utu.fi/deecha/shared_scripts/-/blob/master/LICENSE
-# #
+# #<---------------------------->
+
+
 # #  PURPOSE:
 # #  In the gene column in your SNV annotation if you see something like:
 # #  e.g. PRAMEF7;PRAMEF8  OR  PRAMEF7,PRAMEF8
 # #       then your mutations annotations have gene paralogs.
 # #  This script aims to de-couple those paralogs into individual their rows.
 # #
-# ------------------------ 
-
-### Info on what to pass as the function parameters:
+   
+# # INFO on what to pass as the function parameters:
 # Assign correct paralog_separator found in the gene column of your SNV annotations # e.g. if the Gene column has entries like PRAMEF7;PRAMEF8 
 # then the paralog_separator is ";" 
 # or set it to whatever separator is used by your SNV annotation software.
@@ -28,14 +38,7 @@
 # AnnotationColName = Column name in the SNV annotation table where the Amino acid changes are listed
 
 # <--------------->
-
-# Installing missing dependencies
-dependencies <- c("stringi", "progress")
-missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
-if(length(missing_packages)) install.packages(missing_packages)
-rm(missing_packages,dependencies)
-
-unparalog <- function(DATA, paralog_separator = ";", annotation_separator = ",", GeneColName , AnnotationColName ){
+   
    # Sanity checks
    check_paralog_sep <- !any(stringi::stri_detect_fixed(str = DATA$Gene.refGene,pattern = paralog_separator))
    check_annotation_sep <- !any(stringi::stri_detect_fixed(str =  DATA$AAChange.refGene, pattern = annotation_separator))

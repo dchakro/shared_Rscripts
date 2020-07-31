@@ -1,26 +1,3 @@
-# #<---------------------------->
-# # Please include this section when distributing and/or using this code. 
-# # Please read and abide by the terms of the included LICENSE
-# #
-# #  Author : Deepankar Chakroborty (https://gitlab.utu.fi/deecha)
-# #  Report issues: https://gitlab.utu.fi/deecha/shared_scripts/-/issues
-# #  License: https://gitlab.utu.fi/deecha/shared_scripts/-/blob/master/LICENSE
-# #
-# #  PURPOSE:
-# #  From a given vector of annotations for a particular DNA change
-# #  this function selects the canonical variant (if present)
-# #  by cross referencing the MANE Select and RefSeq Select sets.
-# #
-# #  Logic flow:
-# #  - If there is only one annotation; that is selected
-# #  - If canonical transcript is not found in MANE Select + RefSeq select 
-# #     or a matching transcript ID is not found in the annotation then;
-# #     The mutation with to the the highest position (residue number) is selected.
-# #  - If a match for canonical isoform is found then; 
-# #        that particular mutation is selected
-# #
-# #<---------------------------->
-
 # Installing dependencies
 dependencies <- c("stringi", "doParallel")
 missing_packages <- dependencies[!(dependencies %in% installed.packages()[, "Package"])]
@@ -28,6 +5,31 @@ if(length(missing_packages)) install.packages(missing_packages)
 rm(missing_packages,dependencies)
 
 IsolateCanonicalVariant <- function (AAchangeAnnotations){
+# #<---------------------------->
+# # You must include this section when:
+# # Distributing, Using and/or Modifying this code. 
+# # Please read and abide by the terms of the included LICENSE.
+# # Copyright 2020, Deepankar Chakroborty, All rights reserved.
+# #
+# #  Author : Deepankar Chakroborty (https://gitlab.utu.fi/deecha)
+# #  Report issues: https://gitlab.utu.fi/deecha/shared_scripts/-/issues
+# #  License: https://gitlab.utu.fi/deecha/shared_scripts/-/blob/master/LICENSE
+# #<---------------------------->
+
+
+# #  PURPOSE:
+# #  From a given vector of annotations for a particular DNA change
+# #  this function selects the canonical variant (if present)
+# #  by cross referencing the MANE Select and RefSeq Select sets.
+
+# #  LOGIC FLOW:
+# #  - If there is only one annotation; that is selected
+# #  - If canonical transcript is not found in MANE Select + RefSeq select 
+# #     or a matching transcript ID is not found in the annotation then;
+# #     The mutation with to the the highest position (residue number) is selected.
+# #  - If a match for canonical isoform is found then; 
+# #        that particular mutation is selected
+  
   # importing resources
   library(doParallel)
   refseq <- readRDS(url("https://gitlab.utu.fi/deecha/shared_scripts/-/raw/master/asset/RefSeqSelect_Gene_Transcript.RDS"),"rb")

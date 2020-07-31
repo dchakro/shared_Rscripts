@@ -1,11 +1,16 @@
+ggplotBreaks <- function(range,tick,skip.steps=0){
 # #<---------------------------->
-# # Please include this section when distributing and/or using this code. 
-# # Please read and abide by the terms of the included LICENSE
+# # You must include this section when:
+# # Distributing, Using and/or Modifying this code. 
+# # Please read and abide by the terms of the included LICENSE.
+# # Copyright 2020, Deepankar Chakroborty, All rights reserved.
 # #
 # #  Author : Deepankar Chakroborty (https://gitlab.utu.fi/deecha)
 # #  Report issues: https://gitlab.utu.fi/deecha/shared_scripts/-/issues
 # #  License: https://gitlab.utu.fi/deecha/shared_scripts/-/blob/master/LICENSE
-# #
+# #<---------------------------->
+
+
 # #  PURPOSE:
 # #  Returns a list of vectors containing breaks and labels 
 # # for a continuous variable mapped to one of the axes for use with ggplot2
@@ -20,12 +25,8 @@
 # #     0  10  20  30  40  50  60  70  80  90 100 110 120 130 140 150
 # # 
 # #  $labels
-# #    "0"  " "  "20"  " "  "40"  " "  "60"  " "  "80"  " "  "100"  " "
-# #    "120"  " "  "140"  " "
-# #
-# #<---------------------------->
+# #    "0"  " "  "20"  " "  "40"  " "  "60"  " "  "80"  " "  "100"  " "  "120"  " "  "140"  " "
 
-ggplotBreaks <- function(range,tick,skip.steps=0){
   if (length(range) != 2){
     stop("Correct format for: range = c(min_value,max_value)")
   }
