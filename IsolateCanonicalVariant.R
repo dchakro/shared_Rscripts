@@ -32,8 +32,8 @@ IsolateCanonicalVariant <- function (AAchangeAnnotations){
   
   # importing resources
   library(doParallel)
-  refseq <- readRDS(url("https://gitlab.utu.fi/deecha/shared_scripts/-/raw/master/asset/RefSeqSelect_Gene_Transcript.RDS"),"rb")
-  source("https://gitlab.utu.fi/deecha/shared_scripts/-/raw/master/MutSiteFind.R")
+  refseq <- readRDS(url("https://raw.githubusercontent.com/dchakro/shared_Rscripts/master/asset/RefSeqSelect_Gene_Transcript.RDS"),"rb")
+  source("https://raw.githubusercontent.com/dchakro/shared_Rscripts/master/MutSiteFind.R")
   
   # initializing cluster
   myCluster <- makeCluster(parallel::detectCores(), 
