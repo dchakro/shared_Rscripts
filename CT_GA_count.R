@@ -7,9 +7,9 @@ CT_GA_count <- function(SampleID,Ref_Base,Alt_Base){
 # # Please read and abide by the terms of the included LICENSE.
 # # Copyright 2020, Deepankar Chakroborty, All rights reserved.
 # #
-# #  Author : Deepankar Chakroborty (https://gitlab.utu.fi/deecha)
-# #  Report issues: https://gitlab.utu.fi/deecha/shared_scripts/-/issues
-# #  License: https://gitlab.utu.fi/deecha/shared_scripts/-/blob/master/LICENSE
+# #  Author : Deepankar Chakroborty (https://github.com/dchakro)
+# #  Report issues: https://github.com/dchakro/shared_Rscripts/issues
+# #  License: https://github.com/dchakro/shared_Rscripts/blob/master/LICENSE
 # #<---------------------------->
   
 # # PURPOSE:
