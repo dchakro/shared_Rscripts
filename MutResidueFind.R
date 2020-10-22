@@ -26,7 +26,7 @@ MutResidueFind <- function(MutationColumn){
 # #  USAGE:
 # #  MutatedResidue <- MutResidueFind(MutationColumn)
 
-
+  # Based on a suggestion by https://github.com/mmahmoudian and https://github.com/epakarin
   return(stringi::stri_extract_first(str = MutationColumn, regex = "[ACDEFGHIKLMNPQRSTVWYX]?[0-9]+(_[ACDEFGHIKLMNPQRSTVWYX]?[0-9]+)?"))
 }
 
