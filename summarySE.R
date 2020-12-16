@@ -5,30 +5,31 @@ if(length(missing_packages)) install.packages(missing_packages)
 rm(missing_packages,dependencies)
 
 summarySE <- function(data=NULL, measurevar=NULL, statistic="mean", groupvars=NULL, na.rm=FALSE, conf.interval=.95, .drop=TRUE) {
-  # #<---------------------------->
-  # # You must include this section when:
-  # # Distributing, Using and/or Modifying this code. 
-  # # Please read and abide by the terms of the included LICENSE.
-  # # Copyright 2018, Deepankar Chakroborty, All rights reserved.
+# #<---------------------------->
+# # You must include this section when:
+# # Distributing, Using and/or Modifying this code. 
+# # Please read and abide by the terms of the included LICENSE.
+# # Copyright 2018, Deepankar Chakroborty, All rights reserved.
 
-  # #  Author : Deepankar Chakroborty (https://github.com/dchakro)
-  # #  Report issues: https://github.com/dchakro/shared_Rscripts/issues
-  # #  License: https://github.com/dchakro/shared_Rscripts/blob/master/LICENSE
+# #  Author : Deepankar Chakroborty (https://github.com/dchakro)
+# #  Website: https://www.dchakro.com
+# #  Report issues: https://github.com/dchakro/shared_Rscripts/issues
+# #  License: https://github.com/dchakro/shared_Rscripts/blob/master/LICENSE
 
-  # # Adapted from: http://www.cookbook-r.com/Manipulating_data/Summarizing_data/
-  
-  # # PURPOSE:
-  # # Summarizes data by returning count, mean, standard deviation, 
-  # # standard error of the mean, and confidence interval (default 95%)
-  # # for a given data frame based on grouping variables
-  # #   data: a data frame.
-  
-  # # PARAMETERS
-  # #   measurevar: the name of a column that contains the variable to be summariezed
-  # #   groupvars: a vector containing names of columns that contain grouping variables
-  # #   na.rm: a boolean that indicates whether to ignore NA's
-  # #   conf.interval: the percent range of the confidence interval (default is 95%)
-  # #<---------------------------->
+# # Adapted from: http://www.cookbook-r.com/Manipulating_data/Summarizing_data/
+
+# # PURPOSE:
+# # Summarizes data by returning count, mean, standard deviation, 
+# # standard error of the mean, and confidence interval (default 95%)
+# # for a given data frame based on grouping variables
+# #   data: a data frame.
+
+# # PARAMETERS
+# #   measurevar: the name of a column that contains the variable to be summariezed
+# #   groupvars: a vector containing names of columns that contain grouping variables
+# #   na.rm: a boolean that indicates whether to ignore NA's
+# #   conf.interval: the percent range of the confidence interval (default is 95%)
+# #<---------------------------->
   
   # a version of length which can handle NA's: if na.rm==T, don't count them
   length2 <- function (x, na.rm=FALSE) {
