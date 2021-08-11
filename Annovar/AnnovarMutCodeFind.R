@@ -46,5 +46,3 @@ annovarMutCodeFind=function(MutationColumn,isoform){
   }
   return(MutationList[-1])
 }
-
-annovarMutCodeFind(MutationColumn = Mutation.Table$AAChange.refGene,isoform = "NM_001982")
