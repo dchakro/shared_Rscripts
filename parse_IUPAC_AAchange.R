@@ -33,6 +33,6 @@ parse_IUPAC_AAchange <- function(MutationColumn){
   AAPos <- stringi::stri_extract_first_regex(str = MutationColumn,pattern = "[0-9]+")
   REF_AA <- stringi::stri_extract_first_regex(str = MutationColumn,pattern = "[ACDEFGHIKLMNPQRSTVWYX]+")
   ALT_AA <- stringi::stri_extract_last_regex(str = MutationColumn,pattern = "[ACDEFGHIKLMNPQRSTVWYX]+")
-  return(data.frame(REF_AA,as.numeric(AAPos),ALT_AA))
+  return(data.frame(REF_AA,AAPos=as.numeric(AAPos),ALT_AA))
   
 }
