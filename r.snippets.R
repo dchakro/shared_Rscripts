@@ -1,8 +1,32 @@
+## Collection of my shared R snippets:
+# Author: https://dchakro.com
+# Github: https://github.com/dchakro
+# Code us provided as is, without any warranty.
+
+snippet beginr
+	## Description: ${1:Describe}
+	`r paste("# <–––-", format(Sys.time(), "%a, %b %d, %Y @ %H:%M"), "––->\n")`
+	rm(list = ls())
+	gc()
+	library(data.table)
+	${0}
+
+
 snippet comment_date
 	`r paste("#", date(), "------------------------------\n")`
+	${0}
+
+snippet removeObjects
+	rm(list=ls()[!ls() %in% c("${1:Obj1}","${2:Fun2}")])
+	${0}
+
+snippet removeColumns
+	${1:DF}[,!colnames(${1:DF}) %in% ${2:columnsToRemove}]
+	${0}
 
 snippet mat
 	matrix(${1:data}, nrow = ${2:rows}, ncol = ${3:cols})
+	${0}
 
 snippet elif
 	if (${1:condition}) {
@@ -22,56 +46,127 @@ snippet fun
 		${0}
 	}
 
+snippet readData
+	myDT <- data.table::fread(file = ${1:fileName},
+				sep = "${2:delimiter}",
+				skip = 0,
+				header = F,
+				stringsAsFactors = F,
+				showProgress = T,
+				nThread = `r as.integer(system(command = "sysctl -n hw.physicalcpu", intern = T))`)
+	${0}
+
 snippet gsubstitute
 	gsub("${1:Find}","${2:Replace}",${3:variable}, fixed = T)
+	${0}
 
 snippet replaceText
 	regmatches(${1:String}, gregexpr(pattern="${2:Find}", text =${1:String}, fixed = T) <- "${3:newText}"
+	${0}
 
 snippet not%
 	'%nin%' <- Negate('%in%')
+	${0}
 
 snippet split
-	data.table::as.data.table(stringi::stri_split_fixed(str = ${1:String}, pattern = "${2:pattern}", simplify = T))
+	data.table::as.data.table(stringi::stri_split_fixed(str = ${1:String}, 
+								pattern = "${2:pattern}", 
+								simplify = T))
+	${0}
 
 snippet find_matches
 	regmatches(${1:String}, gregexpr(pattern="${2:Find}",text =${1:String}, fixed = T)
-
-snippet install
-	to_install <- c("${1:pack1}")	## Set packages to install here and run
-	if (unname(Sys.info()["sysname"]) == "Darwin") {
-		CPU_cores <-
-		as.integer(system(command = "sysctl -n hw.physicalcpu", intern = T))
-		# logical cores
-		# CPU_cores <- system("sysctl -n hw.ncpu")
-	} else if (unname(Sys.info()["sysname"]) == "Linux") {
-		CPU_cores <- as.integer(system(command = "nproc", intern = T))
-	}
-	options(Ncpus = CPU_cores)
-	utils::setRepositories(ind = c(1, 2, 3))
-	missing_packages <-
-		to_install[!(to_install %in% installed.packages()[, "Package"])]
-	if (length(missing_packages))
-		install.packages(missing_packages, Ncpus = getOption("Ncpus", 1L))
-	rm(missing_packages, to_install, CPU_cores)
+	${0}
 
 snippet roundUp 
 	source("https://raw.githubusercontent.com/dchakro/shared_Rscripts/master/roundUp.R")
 	roundUp(x = ${1:number}, to = ${2:10})
+	${0}
 
 snippet ggtheme
 	library(ggplot2)
 	source('https://raw.githubusercontent.com/dchakro/ggplot_themes/master/DC_theme_generator.R')
 	customtheme <- DC_theme_generator(type = "L")
-
+	
+	${0}
 
 snippet ggarea
 	ggplot(data=${1:longDF}, aes(x=${2:orderedVar2}, y=${3:plottingValue})) + 
 		geom_area(alpha=1, color="black", aes(fill=${4:fill.order}), position=position_fill(reverse = T)) + 
 		ylab("Percentage of total")
+	
+	${0}
 
 snippet percentScale
 	scale_y_continuous(breaks = seq(0, 1, by=0.25),labels = paste((seq(0, 1, by = .25)*100), "%", sep=""))
+
+snippet foreach
+	library(doParallel)
+	myCluster <- makeCluster(4, type = "FORK",useXDR=F,.combine=cbind)
+	print(myCluster)
+	registerDoParallel(myCluster)
+	
+	results <- foreach(mut = ${1:items},.combine = cbind, .inorder = F) %dopar% {
+	  # Description: ${2:Describe}
+	  # Code for process
+	  
+	  # Returning values
+	  return(list(var1, var2))
+	}
+	stopCluster(myCluster)
+	
+	${0}
+
+snippet multiplePlots
+	## Multiple plots made in parallel and compiled into a grid
+	myplots <-
+	parallel::mclapply(
+	  X = ${1:parameters},
+	  FUN = function(i)
+	    plottingFunction(subDT = DF[, c(1, i)]),
+	  mc.cores = parallel::detectCores()
+	)
+	
+	ggplot2::ggsave(
+	filename = "${2:fileName}.pdf",
+	plot = gridExtra::marrangeGrob(myplots, 
+				layout_matrix = matrix(data = 1:16, nrow = 4, ncol = 4,	byrow = T),
+				as.table = F),
+	width = ${3:width},
+	height = ${4:height} )
+	
+	${0}
+
+# Customized tryCatch block
+snippet tryc
+	tryCatch(expr = {
+		# Code that can throw and error
+	
+	}, error = function (e){
+		message("Error Message")
+		# Actions to take
+	
+	}, finally = {
+		print("Great Success!!")	
+	}) 
+
+snippet installPackages
+	to_install <- c("${1:pack1}")	## Set packages to install here and run
+	if (unname(Sys.info()["sysname"]) == "Darwin") {
+		CPU_cores <- as.integer(system(command = "sysctl -n hw.physicalcpu", intern = T))
+		## For logical cores:
+		# CPU_cores <- system("sysctl -n hw.ncpu")
+	} else if (unname(Sys.info()["sysname"]) == "Linux") {
+		CPU_cores <- as.integer(system(command = "nproc", intern = T))
+	}
+	utils::setRepositories(ind = c(1, 2, 3))
+	missing_packages <-
+		to_install[!(to_install %in% installed.packages()[, "Package"])]
+	if (length(missing_packages))
+		install.packages(missing_packages, type = "source", INSTALL_opts = "--byte-compile", Ncpus = CPU_cores)
+	rm(missing_packages, to_install, CPU_cores)
+	
+	${0}
 	
 snippet bench
 	bmark <- microbenchmark(
@@ -85,3 +180,5 @@ snippet bench
 	}, times = 5 )
 	source("https://raw.githubusercontent.com/dchakro/shared_Rscripts/master/summarySE.R")
 	DF <- summarySE(bmark,measurevar = "time",groupvars = "expr",statistic = "mean")
+	
+	${0}
