@@ -15,11 +15,11 @@ snippet comment_date
 	`r paste("#", date(), "------------------------------\n")`
 	${0}
 
-snippet rmObj
+snippet rmObject
 	rm(list=ls()[!ls() %in% c("${1:Obj1}","${2:Fun2}")])
 	${0}
 
-snippet rmCol
+snippet rmColumn
 	${1:DF}[,!colnames(${1}) %in% ${2:columnsToRemove}]
 	${0}
 
