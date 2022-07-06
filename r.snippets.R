@@ -11,17 +11,16 @@ snippet beginr
 	library(data.table)
 	${0}
 
-
 snippet comment_date
 	`r paste("#", date(), "------------------------------\n")`
 	${0}
 
-snippet removeObjects
+snippet rmObj
 	rm(list=ls()[!ls() %in% c("${1:Obj1}","${2:Fun2}")])
 	${0}
 
-snippet removeColumns
-	${1:DF}[,!colnames(${1:DF}) %in% ${2:columnsToRemove}]
+snippet rmCol
+	${1:DF}[,!colnames(${1}) %in% ${2:columnsToRemove}]
 	${0}
 
 snippet mat
@@ -31,7 +30,7 @@ snippet mat
 snippet elif
 	if (${1:condition}) {
 		${0}
-	}	else if (${1:condition}) {
+	}	else if (${2:condition}) {
 		${0}
 	}	else {
 		${0}
@@ -61,12 +60,12 @@ snippet gsubstitute
 	${0}
 
 snippet replaceText
-	regmatches(${1:String}, gregexpr(pattern="${2:Find}", text =${1:String}, fixed = T) <- "${3:newText}"
+	regmatches(${1:String}, gregexpr(pattern="${2:Find}", text =${1}, fixed = T) <- "${3:newText}"
 	${0}
 
 snippet not%
 	'%nin%' <- Negate('%in%')
-	${0}
+	${1:var1} %in% ${2:var2}
 
 snippet split
 	data.table::as.data.table(stringi::stri_split_fixed(str = ${1:String}, 
@@ -75,12 +74,12 @@ snippet split
 	${0}
 
 snippet find_matches
-	regmatches(${1:String}, gregexpr(pattern="${2:Find}",text =${1:String}, fixed = T)
+	regmatches(${1:String}, gregexpr(pattern="${2:Find}",text =${1}, fixed = T)
 	${0}
 
 snippet roundUp 
 	source("https://raw.githubusercontent.com/dchakro/shared_Rscripts/master/roundUp.R")
-	roundUp(x = ${1:number}, to = ${2:10})
+	roundUp(x = ${1:999}, to = ${2:10})
 	${0}
 
 snippet ggtheme
