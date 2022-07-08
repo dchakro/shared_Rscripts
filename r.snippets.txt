@@ -181,3 +181,10 @@ snippet bench
 	DF <- summarySE(bmark,measurevar = "time",groupvars = "expr",statistic = "mean")
 	
 	${0}
+
+
+snippet parallelRDS
+	source('https://gist.githubusercontent.com/dchakro/8b1e97ba6853563dd0bb5b7be2317692/raw/parallelRDS.R')
+	${0}
+	rm(readRDS.gz,saveRDS.gz,writeRDS,loadRDS)
+	
