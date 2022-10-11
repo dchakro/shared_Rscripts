@@ -5,23 +5,31 @@
 
 snippet beginr
 	## Description: ${1:Describe}
-	`r paste("# <–––-", format(Sys.time(), "%a, %b %d, %Y @ %H:%M"), "––->\n")`
+	`r paste("# ----", format(Sys.time(), "%a, %b %d, %Y @ %H:%M"), "----\n")`
 	rm(list = ls())
 	gc()
 	library(data.table)
 	${0}
 
 snippet comment_date
-	`r paste("#", date(), "------------------------------\n")`
+	`r paste("#", date(), "----------------------------\n")`
 	${0}
 
 snippet rmObject
 	rm(list=ls()[!ls() %in% c("${1:Obj1}","${2:Fun2}")])
 	${0}
 
-snippet rmColumn
+snippet DFrmColumn
 	${1:DF}[,!colnames(${1}) %in% ${2:columnsToRemove}]
 	${0}
+	
+snippet DTrmColumn
+	${1:DF}[, c("${2:Col1}","${3:Col2}") := NULL]
+	${0}
+	
+snippet changeColumnType
+    changeCols  <- c("${1:col1}, ${1:col2}") # define comumns to change
+	${3:DT}[,(changeCols):= lapply(.SD, as.factor), .SDcols = changeCols]
 
 snippet mat
 	matrix(${1:data}, nrow = ${2:rows}, ncol = ${3:cols})
@@ -65,7 +73,7 @@ snippet replaceText
 
 snippet not%
 	'%nin%' <- Negate('%in%')
-	${1:var1} %in% ${2:var2}
+	${1:var1} %nin% ${2:var2}
 
 snippet split
 	data.table::as.data.table(stringi::stri_split_fixed(str = ${1:String}, 
@@ -97,7 +105,7 @@ snippet ggarea
 	${0}
 
 snippet percentScale
-	scale_y_continuous(breaks = seq(0, 1, by=0.25),labels = paste((seq(0, 1, by = .25)*100), "%", sep=""))
+	scale_y_continuous(breaks = seq(0, 1, by=0.25),labels = scales::percent,limits = c(0,1))
 
 snippet foreach
 	library(doParallel)
@@ -114,6 +122,15 @@ snippet foreach
 	}
 	stopCluster(myCluster)
 	
+	${0}
+
+snippet mclApply_block
+	parallel::mclapply(
+	  X = ${1:listVar},
+	  FUN = function(X)
+	    ${2:functioName}(X),
+	  mc.cores = parallel::detectCores()
+	)
 	${0}
 
 snippet multiplePlots
@@ -187,4 +204,7 @@ snippet parallelRDS
 	source('https://gist.githubusercontent.com/dchakro/8b1e97ba6853563dd0bb5b7be2317692/raw/parallelRDS.R')
 	${0}
 	rm(readRDS.gz,saveRDS.gz,writeRDS,loadRDS)
+	
+snippet objectSize
+	format(object.size(${1:Var1}), units = "MB", standard = "SI")
 	
