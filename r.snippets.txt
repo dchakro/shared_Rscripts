@@ -28,7 +28,8 @@ snippet DTrmColumn
 	${0}
 	
 snippet changeColumnType
-    changeCols  <- c("${1:col1}, ${1:col2}") # define comumns to change
+	# define columns to change
+	changeCols  <- c("${1:col1}, ${1:col2}") 
 	${3:DT}[,(changeCols):= lapply(.SD, as.factor), .SDcols = changeCols]
 
 snippet mat
@@ -128,7 +129,7 @@ snippet mclApply_block
 	parallel::mclapply(
 	  X = ${1:listVar},
 	  FUN = function(X)
-	    ${2:functioName}(X),
+	    ${2:functionName}(X),
 	  mc.cores = parallel::detectCores()
 	)
 	${0}
