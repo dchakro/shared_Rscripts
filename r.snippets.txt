@@ -209,3 +209,5 @@ snippet parallelRDS
 snippet objectSize
 	format(object.size(${1:Var1}), units = "MB", standard = "SI")
 	
+snippet unMelt
+	mat <- data.table::dcast.data.table(myDT, row ~ col, value.var = "value")
