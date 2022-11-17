@@ -223,3 +223,4 @@ snippet unMelt
 	mat <- data.table::dcast.data.table(${1:myDT}, ${2:row} ~ ${3:col}, value.var = "${4:value}")
 	${0}
 	
+	
