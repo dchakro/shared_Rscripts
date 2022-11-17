@@ -54,7 +54,7 @@ snippet fun
 		${0}
 	}
 
-snippet readData
+snippet readTable
 	myDT <- data.table::fread(file = ${1:fileName},
 				sep = "${2:delimiter}",
 				skip = 0,
@@ -63,6 +63,16 @@ snippet readData
 				showProgress = T,
 				nThread = `r as.integer(system(command = "sysctl -n hw.physicalcpu", intern = T))`)
 	${0}
+
+snippet writeTable
+	write.table(
+	  x = ${1:TableVar},
+	  file = ${2:fileName},
+	  quote = F,
+	  sep = "${3:delimiter}",
+	  row.names = F,
+	  col.names = T)
+	${0}    
 
 snippet gsubstitute
 	gsub("${1:Find}","${2:Replace}",${3:variable}, fixed = T)
