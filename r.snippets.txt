@@ -71,8 +71,8 @@ snippet writeTable
 	  quote = F,
 	  sep = "${3:delimiter}",
 	  row.names = F,
-	  col.names = T)
-	${0}    
+	  col.names = T
+	)${0}   
 
 snippet gsubstitute
 	gsub("${1:Find}","${2:Replace}",${3:variable}, fixed = T)
@@ -222,5 +222,4 @@ snippet objectSize
 snippet unMelt
 	mat <- data.table::dcast.data.table(${1:myDT}, ${2:row} ~ ${3:col}, value.var = "${4:value}")
 	${0}
-	
 	
