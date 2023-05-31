@@ -9,6 +9,15 @@ snippet beginr
 	rm(list = ls())
 	gc()
 	library(data.table)
+	today <- format(Sys.Date(),format = "%Y-%m-%d")
+	slug <- "${2:SubFolderName}"
+	workingDirectory <- paste0(today,"_",slug)
+	setwd("~/ANALYSIS/")
+	ifelse(test = dir.exists(workingDirectory), 
+		yes = message(paste0(workingDirectory," exists...")),
+		no = dir.create(workingDirectory))
+	setwd(workingDirectory)
+	rm(today,workingDirectory,slug)
 	${0}
 
 snippet comment_date
