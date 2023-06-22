@@ -231,4 +231,8 @@ snippet objectSize
 snippet unMelt
 	mat <- data.table::dcast.data.table(${1:myDT}, ${2:row} ~ ${3:col}, value.var = "${4:value}")
 	${0}
-	
+		
+snippet gptAPI
+	Sys.setenv(OPENAI_API_KEY = "sk-YOURKEYHERE")
+	options(gptstudio.max_tokens = 200)
+	${0}
