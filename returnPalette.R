@@ -60,4 +60,5 @@ returnPalette <- function(ColorVariable = NULL) {
                                            palette = "Spectral"))
         }
     }
+    return(myPalette)
 }
