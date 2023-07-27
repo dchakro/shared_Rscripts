@@ -1,21 +1,21 @@
 returnPalette <- function(ColorVariable = NULL) {
-# #<---------------------------->
-# # You must include this section when:
-# # Distributing, Using and/or Modifying this code. 
-# # Please read and abide by the terms of the included LICENSE.
-# # Copyright 2023, Deepankar Chakroborty, All rights reserved.
-# #
-# #  Author : Deepankar Chakroborty (https://github.com/dchakro)
-# #  Website: https://www.dchakro.com
-# #  Report issues: https://github.com/dchakro/shared_Rscripts/issues
-# #  License: https://github.com/dchakro/shared_Rscripts/blob/master/LICENSE
-# #<---------------------------->
-
-
-# #  PURPOSE:
-# #  Generates an appropriate palette for categorical data based on its length
-
-
+    # #<---------------------------->
+    # # You must include this section when:
+    # # Distributing, Using and/or Modifying this code.
+    # # Please read and abide by the terms of the included LICENSE.
+    # # Copyright 2023, Deepankar Chakroborty, All rights reserved.
+    # #
+    # #  Author : Deepankar Chakroborty (https://github.com/dchakro)
+    # #  Website: https://www.dchakro.com
+    # #  Report issues: https://github.com/dchakro/shared_Rscripts/issues
+    # #  License: https://github.com/dchakro/shared_Rscripts/blob/master/LICENSE
+    # #<---------------------------->
+    
+    
+    # #  PURPOSE:
+    # #  Generates an appropriate palette for categorical data based on its length
+    
+    
     if (class(ColorVariable) == "character") {
         colorsNeeded <- length(unique(ColorVariable))
         if (colorsNeeded < 1) {
@@ -27,12 +27,12 @@ returnPalette <- function(ColorVariable = NULL) {
                                         palette = "Classic Tableau")
         } else if (colorsNeeded > 10 & colorsNeeded < 18) {
             set.seed(2023)
-            myPalette <- sample(
-                palette.colors(n = 10,
-                               palette = "Classic Tableau"),
-                palette.colors(n = colorsNeeded - 10,
-                               palette = "Set2")
-            )
+            myPalette <- c(palette.colors(n = 10,
+                                        palette = "Classic Tableau"),
+            palette.colors(n = colorsNeeded - 10,
+                           palette = "Set2"))
+            set.seed(2023)
+            myPalette <- sample(myPalette)
         } else if (colorsNeeded > 18) {
             myPalette <- sample(hcl.colors(n = colorsNeeded,
                                            palette = "Spectral"))
@@ -49,12 +49,12 @@ returnPalette <- function(ColorVariable = NULL) {
                                         palette = "Classic Tableau")
         } else if (colorsNeeded > 10 & colorsNeeded < 18) {
             set.seed(2023)
-            myPalette <- sample(
-                palette.colors(n = 10,
-                               palette = "Classic Tableau"),
-                palette.colors(n = colorsNeeded - 10,
-                               palette = "Set2")
-            )
+            myPalette <- c(palette.colors(n = 10,
+                                          palette = "Classic Tableau"),
+                           palette.colors(n = colorsNeeded - 10,
+                                          palette = "Set2"))
+            set.seed(2023)
+            myPalette <- sample(myPalette)
         } else if (colorsNeeded > 18) {
             myPalette <- sample(hcl.colors(n = colorsNeeded,
                                            palette = "Spectral"))
