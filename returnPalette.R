@@ -25,15 +25,15 @@ returnPalette <- function(ColorVariable = NULL) {
         if (colorsNeeded > 1 & colorsNeeded < 10) {
             myPalette <- palette.colors(n = colorsNeeded,
                                         palette = "Classic Tableau")
-        } else if (colorsNeeded > 10 & colorsNeeded < 18) {
+        } else if (colorsNeeded >= 10 & colorsNeeded < 18) {
             set.seed(2023)
             myPalette <- c(palette.colors(n = 10,
-                                        palette = "Classic Tableau"),
-            palette.colors(n = colorsNeeded - 10,
-                           palette = "Set2"))
+                                          palette = "Classic Tableau"),
+                           palette.colors(n = colorsNeeded - 10,
+                                          palette = "Set2"))
             set.seed(2023)
             myPalette <- sample(myPalette)
-        } else if (colorsNeeded > 18) {
+        } else if (colorsNeeded >= 18) {
             myPalette <- sample(hcl.colors(n = colorsNeeded,
                                            palette = "Spectral"))
         }
@@ -47,7 +47,7 @@ returnPalette <- function(ColorVariable = NULL) {
         if (colorsNeeded > 1 & colorsNeeded < 10) {
             myPalette <- palette.colors(n = colorsNeeded,
                                         palette = "Classic Tableau")
-        } else if (colorsNeeded > 10 & colorsNeeded < 18) {
+        } else if (colorsNeeded >= 10 & colorsNeeded < 18) {
             set.seed(2023)
             myPalette <- c(palette.colors(n = 10,
                                           palette = "Classic Tableau"),
@@ -55,7 +55,7 @@ returnPalette <- function(ColorVariable = NULL) {
                                           palette = "Set2"))
             set.seed(2023)
             myPalette <- sample(myPalette)
-        } else if (colorsNeeded > 18) {
+        } else if (colorsNeeded >= 18) {
             myPalette <- sample(hcl.colors(n = colorsNeeded,
                                            palette = "Spectral"))
         }
