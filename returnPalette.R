@@ -1,4 +1,4 @@
-returnPalette <- function(ColorVariable = NULL) {
+returnPalette <- function(ColorVariable = NULL, GNE.colors = F) {
     # #<---------------------------->
     # # You must include this section when:
     # # Distributing, Using and/or Modifying this code.
@@ -22,7 +22,21 @@ returnPalette <- function(ColorVariable = NULL) {
             myPalette <- c("#DD0000")
             warning("Nothing to return color for.")
         }
-        if (colorsNeeded > 1 & colorsNeeded < 10) {
+        if (colorsNeeded > 1 & colorsNeeded < 10 & GNE.colors == T) {
+            myPalette <-
+                c(
+                    "#003087",
+                    "#C8102E",
+                    "#008C15",
+                    "#FF8200",
+                    "#AF1685",
+                    "#6F3B34",
+                    "#29D991",
+                    "#0B41CD",
+                    "#8F2257",
+                    "#00A3E0"
+                )[1:colorsNeeded]
+        } else if (colorsNeeded > 1 & colorsNeeded < 10) {
             myPalette <- palette.colors(n = colorsNeeded,
                                         palette = "Classic Tableau")
         } else if (colorsNeeded >= 10 & colorsNeeded < 18) {
