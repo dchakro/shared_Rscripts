@@ -32,7 +32,7 @@ returnPalette <- function(ColorVariable = NULL, GNE.colors = F) {
                     "#AF1685",
                     "#6F3B34",
                     "#29D991",
-                    "#0B41CD",
+                    "#cd970b",
                     "#8F2257",
                     "#00A3E0"
                 )[1:colorsNeeded]
