@@ -44,7 +44,7 @@ returnPalette <- function(ColorVariable = NULL, GNE.colors = F) {
             myPalette <- c(palette.colors(n = 10,
                                           palette = "Classic Tableau"),
                            palette.colors(n = colorsNeeded - 10,
-                                          palette = "Set2"))
+                                          palette = "Set3"))
             set.seed(2023)
             myPalette <- sample(myPalette)
         } else if (colorsNeeded >= 18) {
