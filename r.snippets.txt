@@ -117,6 +117,11 @@ snippet ggtheme
 	
 	${0}
 
+snippet returnPalette
+	source('https://raw.githubusercontent.com/dchakro/shared_Rscripts/main/returnPalette.R')
+	colors <- returnPalette(ColorVariable = ${1:Variable}, GNE.colors = F, jumble = T)
+	${0}
+
 snippet ggarea
 	ggplot(data=${1:longDF}, aes(x=${2:orderedVar2}, y=${3:plottingValue})) + 
 		geom_area(alpha=1, color="black", aes(fill=${4:fill.order}), position=position_fill(reverse = T)) + 
