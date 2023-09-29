@@ -25,7 +25,7 @@ returnPalette <-
         if (class(ColorVariable) == "factor") {
             colorsNeeded <- length(levels(ColorVariable))
         }
-        if (colorsNeeded < 1) {
+        if (colorsNeeded <= 1) {
             myPalette <- c("#DD0000")
             warning("Nothing to return color for.")
         }
